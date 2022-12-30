@@ -38,7 +38,7 @@ hrv_file <- function(hrv_id_values) {
         RHRV::InterpolateNIHR() %>%
         RHRV::CreateTimeAnalysis()
 
-    hrv_estimates <- c(rr_data$TimeAnalysis[[1]]$SDNN,rr_data$TimeAnalysis[[1]]$rMSSD)
+    hrv_estimates <- c(SDNN = rr_data$TimeAnalysis[[1]]$SDNN, RMSSD = rr_data$TimeAnalysis[[1]]$rMSSD, )
 
     return(hrv_estimates)
 }
