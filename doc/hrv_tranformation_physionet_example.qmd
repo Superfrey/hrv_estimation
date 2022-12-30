@@ -1,0 +1,68 @@
+---
+title: "hrv_package"
+format: html
+editor: visual
+---
+
+
+```{r}
+install.packages("RHRV", dependencies = TRUE)
+```
+
+
+Here, XXX is the version number of the library. To start using the library, you should load it by using:
+```{r}
+library('RHRV')
+```
+```{r}
+# HRVData structure containing the heart beats 
+data("HRVData")
+# HRVData structure storing the results of processing the 
+# heart beats: the beats have been filtered, interpolated, ... 
+data("HRVProcessedData")
+
+```
+
+
+```{r}
+hrv_data  = CreateHRVData()
+
+hrv_data = SetVerbose(hrv_data, TRUE )
+```
+
+```{r}
+hrv_data = LoadBeatRR(hrv_data, "data-raw/rr-interval/002.txt", verbose = NULL, datetime = "1/1/2009 12:00:00")
+hrv_data = BuildNIHR(hrv_data, verbose = NULL)
+hrv_data$Beat$RR <- hrv_data$Beat$RR/1000
+hrv_data$Beat$niHR <- hrv_data$Beat$niHR*1000
+hrv_data$Beat$Time <- hrv_data$Beat$Time
+hrv_data = FilterNIHR(hrv_data)
+```
+```{r}
+hrv_data = InterpolateNIHR (hrv_data, freqhr = 4)
+```
+```{r}
+PlotNIHR(hrv_data)
+PlotHR(hrv_data)
+```
+
+
+```{r}
+hrv_data = CreateTimeAnalysis(hrv_data, size = 1000000)
+```
+```{r}
+hrv_data = CreateFreqAnalysis(hrv_data)
+hrv_data = SetVerbose(hrv_data,TRUE)
+hrv_data = CalculatePowerBand(hrv_data , indexFreqAnalysis= 1,
+size = 300, shift = 30 )
+```
+
+```{r}
+test$hrv[1] <- hrv_data$TimeAnalysis$SDNN
+```
+
+
+
+
+
+
