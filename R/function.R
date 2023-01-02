@@ -27,7 +27,12 @@ rhrv_file <- function(hrv_id_values) {
 }
 
 # loop function for doing hrv analysis on a merged dataset with all individuals
-# does not work
+# df_rr_long = data frame with all individuals in long format with interbeat intervals
+# rr_df$user_id = user_id
+# rr_data_column = column with IBI values
+
+# this does not work
+
 ##Error in `select()`:
 #! Can't subset columns with `as.numeric(rr_data_column)`.
 #✖ Can't convert from `as.numeric(rr_data_column)` <double> to <integer> due to loss of precision.
@@ -43,7 +48,7 @@ rhrv_df <- function(df_rr_long, id_rr, rr_data_column) {
     for (i in id) {
         summarised_hrv <- df_rr_long %>%
             filter(id_rr == i) %>%
-            select(as.numeric(rr_data_column))
+            select(as.double(rr_data_column))
 
         hrv_indices<- rhrv_file(summarised_hrv)
     }
