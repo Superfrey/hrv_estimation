@@ -152,3 +152,7 @@ my_data$FreqAnalysis
 hrvdatatest <- hrv_file(hrv_test)
 
 PlotHR(hrvdatatest)
+
+
+##Hello JOE!!!!##
+usethis::use_git_config(user.name="superfrey", user.email="jonasfrschaarup@gmail.com")
