@@ -49,8 +49,9 @@ rhrv_df <- function(df_rr_long, id_rr, rr_data_column) {
         summarised_hrv <- df_rr_long %>%
             filter(id_rr == i) %>%
             select(as.double(rr_data_column))
+        vector_hrv <- summarised_hrv$rr_data_column
 
-        hrv_indices<- rhrv_file(summarised_hrv)
+        hrv_indices<- rhrv_file(vector_hrv)
     }
 
     df <- rbind(df,hrv_indices)
